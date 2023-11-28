@@ -1,28 +1,28 @@
 const int greenPin1 = 2;
 const int yellowPin1 = 3;
 const int redPin1 = 4;
-const int irSensorPin1 = 5;  // Change this to the actual pin for the first IR sensor module for the first set
-const int irSensorPin2 = 6;  // Change this to the actual pin for the second IR sensor module for the first set
+const int irSensorPin1 = 5; 
+const int irSensorPin2 = 6; 
 
 
 const int greenPin2 = 7;
 const int yellowPin2 = 8;
 const int redPin2 = 9;
-const int irSensorPin3 = 10;  // Change this to the actual pin for the first IR sensor module for the second set
-const int irSensorPin4 = 11;  // Change this to the actual pin for the second IR sensor module for the second set
+const int irSensorPin3 = 10;
+const int irSensorPin4 = 11;
 
 
 const int greenPin3 = 12;
 const int yellowPin3 = 13;
 const int redPin3 = A0;
-const int irSensorPin5 = A1;  // Change this to the actual pin for the first IR sensor module for the third set
-const int irSensorPin6 = A2;  // Change this to the actual pin for the second IR sensor module for the third set
+const int irSensorPin5 = A1; 
+const int irSensorPin6 = A2;
 
 const int greenPin4 = A3;
 const int yellowPin4 = A4;
 const int redPin4 = A5;
-const int irSensorPin7 = A6;  // Change this to the actual pin for the first IR sensor module for the fourth set
-const int irSensorPin8 = A7;  // Change this to the actual pin for the second IR sensor module for the fourth set
+const int irSensorPin7 = A6; 
+const int irSensorPin8 = A7; 
 
 void setup() {
   pinMode(greenPin1, OUTPUT);

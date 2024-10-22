@@ -1,0 +1,925 @@
+const int greenPin1 = 2;
+const int yellowPin1 = 3;
+const int redPin1 = 4;
+const int irSensorPin1 = A15; 
+const int irSensorPin2 = A14; 
+
+
+const int greenPin2 = 5;
+const int yellowPin2 = 6;
+const int redPin2 = 7;
+const int irSensorPin3 = A13;
+const int irSensorPin4 = A12;
+
+
+const int greenPin3 = 8;
+const int yellowPin3 = 9;
+const int redPin3 = 10;
+const int irSensorPin5 = A11; 
+const int irSensorPin6 = A10;
+
+const int greenPin4 = 11;
+const int yellowPin4 = 12;
+const int redPin4 = 13;
+const int irSensorPin7 = A9; 
+const int irSensorPin8 = A8; 
+
+const int segA = A0;
+const int segB = A1;
+const int segC = A2;
+const int segD = A3;
+
+
+
+// TIMES CAN BE EASILY CHANGED
+const int normalGreen = 3000;
+const int normalYellow = 1000;
+const int normalRed = 1000;
+
+const int emergTime = 5000;
+
+const int sensorOne = normalGreen + 3000; // Time when one sensor is active
+const int sensorTwo = normalGreen + 6000; // Time when both sensors are active
+
+const int emerg1 = A4;
+const int emerg2 = A5;
+const int emerg3 = A6;
+const int emerg4 = A7;
+
+int normalSeconds = (normalGreen)/1000;
+int sensorTime = (sensorOne) /1000;
+int sensorTwoTime = (sensorTwo) / 1000;
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd2(0x26, 16, 2);
+LiquidCrystal_I2C lcd3(0x25, 16, 2);
+LiquidCrystal_I2C lcd4(0x23, 16, 2); // set the lcd1 address to 0x27 for a 16 chars and 2 line display
+
+
+void waitTurn1(){
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Please Wait");
+
+
+}
+void waitTurn2(){
+    
+    lcd2.setCursor(0,0);
+    lcd2.print("Please Wait");
+  
+   
+}
+void waitTurn3(){
+    lcd3.setCursor(0,0);
+    lcd3.print("Please Wait");
+ 
+ 
+}
+void waitTurn4(){
+    lcd4.clear();
+    lcd4.setCursor(0,0);
+    lcd4.print("Please Wait");
+   
+  
+}
+
+
+
+void countdownNormal1(){
+
+  
+ waitTurn2();
+ waitTurn3();
+  waitTurn4();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Time Remaining: ");
+  lcd.setCursor(0, 1);
+
+
+
+  for (int i = normalSeconds; i >= 0; i--) {
+    lcd.setCursor(11, 1);
+    lcd.print("   "); // Clear the previous number
+    lcd.setCursor(11, 1);
+    lcd.print(i);
+    delay(1000); // Wait for 1 second
+  }
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Please Wait");
+}
+
+void countdownOne1(){
+
+  lcd.setCursor(0, 0);
+  lcd.print("Time Remaining: ");
+  lcd.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn3();
+  waitTurn4();
+
+  for (int i = sensorTime; i >= 0; i--) {
+    lcd.setCursor(11, 1);
+    lcd.print("   "); // Clear the previous number
+    lcd.setCursor(11, 1);
+    lcd.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Please Wait");
+}
+void countdownTwo1(){
+
+  
+
+  lcd.setCursor(0, 0);
+  lcd.print("Time Remaining: ");
+  lcd.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn3();
+  waitTurn4();
+
+  for (int i = sensorTwoTime; i >= 0; i--) {
+    lcd.setCursor(11, 1);
+    lcd.print("   "); // Clear the previous number
+    lcd.setCursor(11, 1);
+    lcd.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Please Wait");
+}
+
+
+
+
+
+//Countdowns for the second light
+
+void countdownNormal2(){
+  lcd2.setCursor(0, 0);
+  lcd2.print("Time Remaining: ");
+  lcd2.setCursor(0, 1);
+
+  waitTurn1();
+  waitTurn3();
+  waitTurn4();
+
+
+  for (int i = normalSeconds; i >= 0; i--) {
+    lcd2.setCursor(11, 1);
+    lcd2.print("   "); // Clear the previous number
+    lcd2.setCursor(11, 1);
+    lcd2.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd2.clear();
+  lcd2.setCursor(0,0);
+  lcd2.print("Please Wait");
+}
+
+void countdownOne2(){
+
+  lcd2.setCursor(0, 0);
+  lcd2.print("Time Remaining: ");
+  lcd2.setCursor(0, 1);
+
+  waitTurn1();
+  waitTurn3();
+  waitTurn4();
+
+  for (int i = sensorTime; i >= 0; i--) {
+    lcd2.setCursor(11, 1);
+    lcd2.print("   "); // Clear the previous number
+    lcd2.setCursor(11, 1);
+    lcd2.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd2.clear();
+  lcd2.setCursor(0,0);
+  lcd2.print("Please Wait");
+}
+void countdownTwo2(){
+
+  
+
+  lcd2.setCursor(0, 0);
+  lcd2.print("Time Remaining: ");
+  lcd2.setCursor(0, 1);
+
+  waitTurn1();
+  waitTurn3();
+  waitTurn4();
+
+  for (int i = sensorTwoTime; i >= 0; i--) {
+    lcd2.setCursor(11, 1);
+    lcd2.print("   "); // Clear the previous number
+    lcd2.setCursor(11, 1);
+    lcd2.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd2.clear();
+  lcd2.setCursor(0,0);
+  lcd2.print("Please Wait");
+}
+
+
+
+
+//Countdowns for the third light
+
+void countdownNormal3(){
+  lcd3.setCursor(0, 0);
+  lcd3.print("Time Remaining: ");
+  lcd3.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn1();
+  waitTurn4();
+
+
+  for (int i = normalSeconds; i >= 0; i--) {
+    lcd3.setCursor(11, 1);
+    lcd3.print("   "); // Clear the previous number
+    lcd3.setCursor(11, 1);
+    lcd3.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd3.clear();
+  lcd3.setCursor(0,0);
+  lcd3.print("Please Wait");
+}
+
+void countdownOne3(){
+
+  lcd3.setCursor(0, 0);
+  lcd3.print("Time Remaining: ");
+  lcd3.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn1();
+  waitTurn4();
+
+  for (int i = sensorTime; i >= 0; i--) {
+    lcd3.setCursor(11, 1);
+    lcd3.print("   "); // Clear the previous number
+    lcd3.setCursor(11, 1);
+    lcd3.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd3.clear();
+  lcd3.setCursor(0,0);
+  lcd3.print("Please Wait");
+}
+void countdownTwo3(){
+
+  
+
+  lcd3.setCursor(0, 0);
+  lcd3.print("Time Remaining: ");
+  lcd3.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn1();
+  waitTurn4();
+
+  for (int i = sensorTwoTime; i >= 0; i--) {
+    lcd3.setCursor(11, 1);
+    lcd3.print("   "); // Clear the previous number
+    lcd3.setCursor(11, 1);
+    lcd3.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd3.clear();
+  lcd3.setCursor(0,0);
+  lcd3.print("Please Wait");
+}
+
+
+//Countdowns for the Fourth light
+
+void countdownNormal4(){
+  lcd4.setCursor(0, 0);
+  lcd4.print("Time Remaining: ");
+  lcd4.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn3();
+  waitTurn1();
+
+
+  for (int i = normalSeconds; i >= 0; i--) {
+    lcd4.setCursor(11, 1);
+    lcd4.print("   "); // Clear the previous number
+    lcd4.setCursor(11, 1);
+    lcd4.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd4.clear();
+  lcd4.setCursor(0,0);
+  lcd4.print("Please Wait");
+}
+
+void countdownOne4(){
+
+  lcd4.setCursor(0, 0);
+  lcd4.print("Time Remaining: ");
+  lcd4.setCursor(0, 1);
+
+  waitTurn2();
+  waitTurn3();
+  waitTurn1();
+
+  for (int i = sensorTime; i >= 0; i--) {
+    lcd4.setCursor(11, 1);
+    lcd4.print("   "); // Clear the previous number
+    lcd4.setCursor(11, 1);
+    lcd4.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd4.clear();
+  lcd4.setCursor(0,0);
+  lcd4.print("Please Wait");
+}
+void countdownTwo4(){
+
+  
+
+  lcd4.setCursor(0, 0);
+  lcd4.print("Time Remaining: ");
+  lcd4.setCursor(0, 1);
+
+  waitTurn1();
+  waitTurn3();
+  waitTurn2();
+
+  for (int i = sensorTwoTime; i >= 0; i--) {
+    lcd4.setCursor(11, 1);
+    lcd4.print("   "); // Clear the previous number
+    lcd4.setCursor(11, 1);
+    lcd4.print(i);
+    delay(1000); // Wait for 1 second
+  }
+  lcd4.clear();
+  lcd4.setCursor(0,0);
+  lcd4.print("Please Wait");
+}
+
+void displayEmergency(){
+
+}
+
+void check1(){
+if (digitalRead(emerg1) == LOW) {
+    // If emergency condition is detected, immediately call emergency function
+    emergency1();
+    // Exit the normalOp function
+    return;
+  }
+}
+void check2(){
+if (digitalRead(emerg2) == LOW) {
+    // If emergency condition is detected, immediately call emergency function
+    emergency2();
+    // Exit the normalOp function
+    return;
+  }
+}
+void check3(){
+if (digitalRead(emerg3) == LOW) {
+    // If emergency condition is detected, immediately call emergency function
+    emergency3();
+    // Exit the normalOp function
+    return;
+  }
+}
+void check4(){
+if (digitalRead(emerg4) == LOW) {
+    // If emergency condition is detected, immediately call emergency function
+    emergency4();
+    // Exit the normalOp function
+    return;
+  }
+}
+
+void checkAll(){
+  check1();
+  check2();
+  check3();
+  check4();
+}
+
+
+
+void normalOp(){
+    // Initialize all lights to red
+  digitalWrite(greenPin1, LOW);
+  digitalWrite(yellowPin1, LOW);
+  digitalWrite(redPin1, HIGH);
+
+  digitalWrite(greenPin2, LOW);
+  digitalWrite(yellowPin2, LOW);
+  digitalWrite(redPin2, HIGH);
+
+  digitalWrite(greenPin3, LOW);
+  digitalWrite(yellowPin3, LOW);
+  digitalWrite(redPin3, HIGH);
+
+  digitalWrite(greenPin4, LOW);
+  digitalWrite(yellowPin4, LOW);
+  digitalWrite(redPin4, HIGH);
+
+  digitalWrite(segA, LOW);
+  digitalWrite(segB, LOW);
+  digitalWrite(segC, LOW);
+  digitalWrite(segD, LOW);
+
+
+
+
+checkAll();
+
+
+
+
+
+
+
+  // Check the state of the IR sensors for the first set of traffic lights
+  bool isSensor1Blocked = (digitalRead(irSensorPin1) == LOW);
+  bool isSensor2Blocked = (digitalRead(irSensorPin2) == LOW);
+
+
+checkAll();
+
+  // First set of traffic lights
+  if (isSensor1Blocked && isSensor2Blocked) {
+    digitalWrite(greenPin1, HIGH);
+    digitalWrite(redPin1, LOW);
+    countdownTwo1();
+    
+  } else if (isSensor1Blocked || isSensor2Blocked) {
+    digitalWrite(greenPin1, HIGH);
+    digitalWrite(redPin1, LOW);
+ 
+    countdownOne1();
+    
+  } else {
+   
+    digitalWrite(greenPin1, HIGH);
+    digitalWrite(redPin1, LOW);
+    
+    countdownNormal1();
+   
+    
+  }
+
+
+
+checkAll();
+
+  // First set yellow light
+  digitalWrite(greenPin1, LOW);
+  digitalWrite(yellowPin1, HIGH);
+  digitalWrite(redPin1, LOW);
+  delay(normalYellow);  // 2 seconds yellow
+
+
+checkAll();
+
+  // First set red light
+  digitalWrite(yellowPin1, LOW);
+  digitalWrite(redPin1, HIGH);
+  delay(normalRed);  // 3 seconds red
+
+
+
+checkAll();
+  // Check the state of the IR sensors for the second set of traffic lights
+  bool isSensor3Blocked = (digitalRead(irSensorPin3) == LOW);
+  bool isSensor4Blocked = (digitalRead(irSensorPin4) == LOW);
+
+
+checkAll();
+  // Second set of traffic lights
+  if (isSensor3Blocked && isSensor4Blocked) {
+    digitalWrite(greenPin2, HIGH);
+    digitalWrite(redPin2, LOW);
+   countdownTwo2();
+  } else if (isSensor3Blocked || isSensor4Blocked) {
+    digitalWrite(greenPin2, HIGH);
+    digitalWrite(redPin2, LOW);
+  countdownOne2();  } 
+ else {
+    digitalWrite(greenPin2, HIGH);
+    digitalWrite(redPin2, LOW);
+    countdownNormal2();
+  }
+
+
+checkAll();
+  // Second set yellow light
+  digitalWrite(greenPin2, LOW);
+  digitalWrite(yellowPin2, HIGH);
+  digitalWrite(redPin2, LOW);
+  delay(normalYellow);  // 2 seconds yellow
+
+checkAll();
+  // Second set red light
+  digitalWrite(yellowPin2, LOW);
+  digitalWrite(redPin2, HIGH);
+  delay(normalRed);  // 3 seconds red
+
+  // Check the state of the IR sensors for the third set of traffic lights
+  bool isSensor5Blocked = (digitalRead(irSensorPin5) == LOW);
+  bool isSensor6Blocked = (digitalRead(irSensorPin6) == LOW);
+
+
+checkAll();
+  // Third set of traffic lights
+  if (isSensor5Blocked && isSensor6Blocked) {
+    digitalWrite(greenPin3, HIGH);
+    digitalWrite(redPin3, LOW);
+    countdownTwo3();
+  } else if (isSensor5Blocked || isSensor6Blocked) {
+    digitalWrite(greenPin3, HIGH);
+    digitalWrite(redPin3, LOW);
+    countdownOne3();  } 
+    else {
+    digitalWrite(greenPin3, HIGH);
+    digitalWrite(redPin3, LOW);
+    countdownNormal3();
+  }
+
+checkAll();
+  // Third set yellow light
+  digitalWrite(greenPin3, LOW);
+  digitalWrite(yellowPin3, HIGH);
+  digitalWrite(redPin3, LOW);
+  delay(normalYellow);  // 2 seconds yellow
+
+checkAll();
+  // Third set red light
+  digitalWrite(yellowPin3, LOW);
+  digitalWrite(redPin3, HIGH);
+  delay(normalRed);  // 3 seconds red
+
+  // Check the state of the IR sensors for the fourth set of traffic lights
+  bool isSensor7Blocked = (digitalRead(irSensorPin7) == LOW);
+  bool isSensor8Blocked = (digitalRead(irSensorPin8) == LOW);
+
+
+checkAll();
+  // Fourth set of traffic lights
+  if (isSensor7Blocked && isSensor8Blocked) {
+    digitalWrite(greenPin4, HIGH);
+    digitalWrite(redPin4, LOW);
+    countdownTwo4();
+  } else if (isSensor7Blocked || isSensor8Blocked) {
+    digitalWrite(greenPin4, HIGH);
+    digitalWrite(redPin4, LOW);
+    countdownOne4();  
+ } 
+else {
+    digitalWrite(greenPin4, HIGH);
+    digitalWrite(redPin4, LOW);
+    countdownNormal4();
+  }
+
+checkAll();
+  // Fourth set yellow light
+  digitalWrite(greenPin4, LOW);
+  digitalWrite(yellowPin4, HIGH);
+  digitalWrite(redPin4, LOW);
+  delay(normalYellow);  // 2 seconds yellow
+
+checkAll();
+  // Fourth set red light
+  digitalWrite(yellowPin4, LOW);
+  digitalWrite(redPin4, HIGH);
+  delay(normalRed);  // 3 seconds red
+
+
+checkAll();
+
+
+}
+
+
+
+void emergency1(){
+
+  lcd.clear();
+  lcd.setCursor (1,0);
+  lcd.print("Emergency at");
+  lcd.setCursor(2,1);
+  lcd.print("This lane");
+
+  lcd2.clear();
+  lcd2.setCursor (1,0);
+  lcd2.print("Emergency at");
+  lcd2.setCursor(2, 1);
+  lcd2.print("Lane: 1");
+
+  lcd3.clear();
+  lcd3.setCursor (1,0);
+  lcd3.print("Emergency at");
+  lcd3.setCursor(2, 1);
+  lcd3.print("Lane: 1");
+
+  lcd4.clear();
+  lcd4.setCursor (1,0);
+  lcd4.print("Emergency at");
+  lcd4.setCursor(2, 1);
+  lcd4.print("Lane: 1");
+
+  //Green light for traffic light 1
+  digitalWrite(segA, HIGH);
+
+  digitalWrite(greenPin1, HIGH);
+  digitalWrite(redPin1, LOW);
+
+  digitalWrite(greenPin2, LOW);
+  digitalWrite(redPin2, HIGH);
+
+  digitalWrite(greenPin3, LOW);
+  digitalWrite(redPin3, HIGH);
+
+  digitalWrite(greenPin4, LOW);
+  digitalWrite(redPin4, HIGH);
+
+  
+
+  delay(emergTime);
+  lcd.clear();
+  lcd2.clear();
+  lcd3.clear();
+  lcd4.clear();
+  normalOp();
+}
+
+void emergency2(){
+
+  lcd2.clear();
+  lcd2.setCursor (1,0);
+  lcd2.print("Emergency at");
+  lcd2.setCursor(2,1);
+  lcd2.print("This lane");
+
+  lcd.clear();
+  lcd.setCursor (1,0);
+  lcd.print("Emergency at");
+  lcd.setCursor(2, 1);
+  lcd.print("Lane: 2");
+
+  lcd3.clear();
+  lcd3.setCursor (1,0);
+  lcd3.print("Emergency at");
+  lcd3.setCursor(2, 1);
+  lcd3.print("Lane: 2");
+
+  lcd4.clear();
+  lcd4.setCursor (1,0);
+  lcd4.print("Emergency at");
+  lcd4.setCursor(2, 1);
+  lcd4.print("Lane: 2");
+
+  //Green light for traffic light 2
+  digitalWrite(segB, HIGH);
+
+  digitalWrite(greenPin2, HIGH);
+  digitalWrite(redPin2, LOW);
+
+  digitalWrite(greenPin1, LOW);
+  digitalWrite(redPin1, HIGH);
+
+  digitalWrite(greenPin3, LOW);
+  digitalWrite(redPin3, HIGH);
+
+  digitalWrite(greenPin4, LOW);
+  digitalWrite(redPin4, HIGH);
+
+
+  
+  delay(emergTime);
+  lcd.clear();
+  lcd2.clear();
+  lcd3.clear();
+  lcd4.clear();
+  normalOp();
+}
+
+
+void emergency3(){
+
+  lcd3.clear();
+  lcd3.setCursor (1,0);
+  lcd3.print("Emergency at");
+  lcd3.setCursor(2,1);
+  lcd3.print("This lane");
+
+  lcd2.clear();
+  lcd2.setCursor (1,0);
+  lcd2.print("Emergency at");
+  lcd2.setCursor(2, 1);
+  lcd2.print("Lane: 3");
+
+  lcd.clear();
+  lcd.setCursor (1,0);
+  lcd.print("Emergency at");
+  lcd.setCursor(2, 1);
+  lcd.print("Lane: 3");
+
+  lcd4.clear();
+  lcd4.setCursor (1,0);
+  lcd4.print("Emergency at");
+  lcd4.setCursor(2, 1);
+  lcd4.print("Lane: 3");
+
+  //Green light for traffic light 1
+  digitalWrite(segC, HIGH);
+  digitalWrite(greenPin3, HIGH);
+  digitalWrite(redPin3, LOW);
+
+  digitalWrite(greenPin2, LOW);
+  digitalWrite(redPin2, HIGH);
+
+  digitalWrite(greenPin1, LOW);
+  digitalWrite(redPin1, HIGH);
+
+  digitalWrite(greenPin4, LOW);
+  digitalWrite(redPin4, HIGH);
+
+  
+  delay(emergTime);
+  lcd.clear();
+  lcd2.clear();
+  lcd3.clear();
+  lcd4.clear();
+  normalOp();
+}
+
+
+void emergency4(){
+
+  lcd4.clear();
+  lcd4.setCursor (1,0);
+  lcd4.print("Emergency at");
+  lcd4.setCursor(2,1);
+  lcd4.print("This lane");
+
+  lcd2.clear();
+  lcd2.setCursor (1,0);
+  lcd2.print("Emergency at");
+  lcd2.setCursor(2, 1);
+  lcd2.print("Lane: 4");
+
+  lcd3.clear();
+  lcd3.setCursor (1,0);
+  lcd3.print("Emergency at");
+  lcd3.setCursor(2, 1);
+  lcd3.print("Lane: 4");
+
+  lcd.clear();
+  lcd.setCursor (1,0);
+  lcd.print("Emergency at");
+  lcd.setCursor(2, 1);
+  lcd.print("Lane: 4");
+
+  //Green light for traffic light 1
+  digitalWrite(segD, HIGH);
+  digitalWrite(greenPin4, HIGH);
+  digitalWrite(redPin4, LOW);
+
+  digitalWrite(greenPin2, LOW);
+  digitalWrite(redPin2, HIGH);
+
+  digitalWrite(greenPin3, LOW);
+  digitalWrite(redPin3, HIGH);
+
+  digitalWrite(greenPin1, LOW);
+  digitalWrite(redPin1, HIGH);
+
+ 
+  delay(emergTime);
+  lcd.clear();
+  lcd2.clear();
+  lcd3.clear();
+  lcd4.clear();
+  normalOp();
+}
+
+
+
+
+
+
+
+
+void setup() {
+  pinMode(greenPin1, OUTPUT);
+  pinMode(yellowPin1, OUTPUT);
+  pinMode(redPin1, OUTPUT);
+  pinMode(irSensorPin1, INPUT);
+  pinMode(irSensorPin2, INPUT);
+
+  pinMode(greenPin2, OUTPUT);
+  pinMode(yellowPin2, OUTPUT);
+  pinMode(redPin2, OUTPUT);
+  pinMode(irSensorPin3, INPUT);
+  pinMode(irSensorPin4, INPUT);
+
+  pinMode(greenPin3, OUTPUT);
+  pinMode(yellowPin3, OUTPUT);
+  pinMode(redPin3, OUTPUT);
+  pinMode(irSensorPin5, INPUT);
+  pinMode(irSensorPin6, INPUT);
+
+  pinMode(greenPin4, OUTPUT);
+  pinMode(yellowPin4, OUTPUT);
+  pinMode(redPin4, OUTPUT);
+  pinMode(irSensorPin7, INPUT);
+  pinMode(irSensorPin8, INPUT);
+
+  pinMode(segA, OUTPUT);
+  pinMode(segB, OUTPUT);
+  pinMode(segC, OUTPUT);
+  pinMode(segD, OUTPUT);
+
+  pinMode(emerg1, INPUT);
+
+  lcd.init();
+  lcd.backlight();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Traffic Lights");
+  lcd.setCursor(0, 1);
+  lcd.print("ELET 2105");
+
+
+  lcd2.init();
+  lcd2.backlight();
+
+  lcd2.setCursor(0, 0);
+  lcd2.print("Traffic Lights");
+  lcd2.setCursor(0, 1);
+  lcd2.print("ELET 2105");
+  
+  lcd3.init();
+  lcd3.backlight();
+
+  lcd3.setCursor(0, 0);
+  lcd3.print("Traffic Lights");
+  lcd3.setCursor(0, 1);
+  lcd3.print("ELET 2105");
+
+  lcd4.init();
+  lcd4.backlight();
+
+  lcd4.setCursor(0, 0);
+  lcd4.print("Traffic Lights");
+  lcd4.setCursor(0, 1);
+  lcd4.print("ELET 2105");
+  
+
+  delay(3000);
+  lcd.clear();
+  
+  lcd2.clear();
+
+  lcd3.clear();
+  
+  lcd4.clear();
+
+}
+
+
+
+bool isEmergencyActive = false;
+
+void loop() {
+
+  normalOp();
+  /*bool isAmbulanceComing = (digitalRead(emerg1) == LOW);
+
+  if (isAmbulanceComing && !isEmergencyActive) {
+    isEmergencyActive = true;
+    emergency1();
+  } else if (!isAmbulanceComing && isEmergencyActive) {
+    isEmergencyActive = false;
+    // Reset lights or perform any cleanup needed after emergency
+  } else if (!isEmergencyActive) {
+    normalOp();
+  }
+  */
+}

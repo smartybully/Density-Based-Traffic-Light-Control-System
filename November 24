@@ -40,10 +40,8 @@ const int irSensorPin8 = A8;
 #define SDA_PIN 53   // SDA pin of RC522
 #define RST_PIN 49   // RST pin of RC522
 
-//#define LED_STRIP_IDLE_PIN 22
 
 #define NUM_LEDS 7
-//#define NUM_IDLE_LEDS 100
 
 
 Adafruit_NeoPixel strip4(NUM_LEDS, LED_STRIP_4, NEO_GRB + NEO_KHZ800); // LED Strip 4 (Blue)
@@ -54,8 +52,6 @@ Adafruit_NeoPixel strip1(NUM_LEDS, LED_STRIP_1, NEO_GRB + NEO_KHZ800); // LED St
 MFRC522 mfrc522(SDA_PIN, RST_PIN);                // RFID scanner instance
 
 
-
-//Adafruit_NeoPixel idleStrip(NUM_IDLE_LEDS, LED_STRIP_IDLE_PIN, NEO_GRB + NEO_KHZ800);
 
 
 
@@ -99,6 +95,28 @@ LiquidCrystal_I2C lcd4(0x23, 16, 2); // set the lcd1 address to 0x27 for a 16 ch
 */
 
 void sequentialEffect(Adafruit_NeoPixel &strip, uint32_t color) {
+  // Flash red and blue for 3 seconds
+  int flashDuration = 3000; // Flash duration in milliseconds
+  int flashInterval = 250;  // Duration for each red/blue flash (250ms)
+  int numFlashes = flashDuration / flashInterval;
+
+  for (int i = 0; i < numFlashes; i++) {
+    // Flash red
+    for (int j = 0; j < strip.numPixels(); j++) {
+      strip.setPixelColor(j, strip.Color(255, 0, 0)); // Red
+    }
+    strip.show();
+    delay(flashInterval / 2);
+
+    // Flash blue
+    for (int j = 0; j < strip.numPixels(); j++) {
+      strip.setPixelColor(j, strip.Color(0, 0, 255)); // Blue
+    }
+    strip.show();
+    delay(flashInterval / 2);
+  }
+
+  // Proceed with the sequential effect
   for (int loop = 0; loop < 7; loop++) { // Loop the effect 7 times
     for (int i = 0; i < strip.numPixels(); i++) {
       strip.setPixelColor(i, color); // Turn on LED
@@ -109,6 +127,7 @@ void sequentialEffect(Adafruit_NeoPixel &strip, uint32_t color) {
     strip.show();
   }
 }
+
 
 
 
